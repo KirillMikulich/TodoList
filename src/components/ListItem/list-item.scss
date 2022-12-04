@@ -4,7 +4,7 @@
   justify-content: flex-start;
 
   width: 100%;
-  min-height: 70px;
+  min-height: 80px;
   height: auto;
 
   border-radius: 15px;
@@ -20,20 +20,25 @@
     flex-wrap: wrap;
     overflow: hidden;
     margin-right: 20px;
-
-    .name{
-      font-size: 20px;
-    }
+    flex-direction: column;
 
     .text{
       flex-wrap: wrap;
     }
 
-    .tag{
-      background-color: #646fef;
-      color: white;
-      border-radius: 10px;
-      padding: 2px 4px;
+    .tag-container {
+      display: flex;
+      margin-top: 10px;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .tag{
+        background-color: #646fef;
+        color: white;
+        border-radius: 10px;
+        padding: 2px 4px;
+        margin-right: 5px;
+      }
     }
 
   }

@@ -1,23 +1,17 @@
 import React from 'react';
+import ListItem from "../ListItem/ListItem";
+import { IListItem } from "../../models";
 
 //style
 import './list.scss';
-import ListItem from "../ListItem/ListItem";
 
-function List(): JSX.Element {
-  const array = [
-    {name: 'dasdas', tags: ['sdad', 'sdasd', 'asdasda']},
-    {name: 'dasd123as', tags: ['sd1ad', 'sda41sd', 'as2dasda']},
-    {name: 'das4214das', tags: ['sd2ad', 'sd414asd', 'asd553asda']},
-    {name: 'das4214das', tags: ['sd2ad', 'sd414asd', 'asd553asda']},
-  ];
-
+function List({list, onDelete, onEdit}:
+                {list: IListItem[], onEdit: Function, onDelete: Function}): JSX.Element {
   return (
     <div className="list">
       {
-        array.map((item)=>
-          <ListItem name={item.name}
-                    tags={item.tags}/>)
+        list.map((item: IListItem)=>
+          <ListItem key={item.index} text={item.text} index={item.index} onEdit={onEdit} onDelete={onDelete}/>)
       }
     </div>
   );

@@ -1,8 +1,9 @@
-export interface IList {
-  items: IListItem[]
+export interface IListItem {
+  text: string,
+  index: number
 }
 
-export interface IListItem {
-  name: string,
-  text: string,
+export enum InputMode {
+  Edit,
+  Add
 }
