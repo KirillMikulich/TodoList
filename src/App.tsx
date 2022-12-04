@@ -12,6 +12,7 @@ let todoList: IListItem[] = TodoList.todoList;
 function App() {
   const [filter, setFilter] = React.useState('');
   const [editValue, setEditValue] = React.useState('');
+  //const [todoList, setTodoList] = React.useState<IListItem[]>([]);
 
   const [editIndex, setEditIndex] = React.useState<number | null>(null);
   const [mode, setMode] = React.useState(InputMode.Add);
@@ -45,14 +46,18 @@ function App() {
 
   const onDeleteClick = (index: number) => {
     todoList = todoList.filter((item) => item.index !== index);
+    //setTodoList(newList);
+
   }
 
   const onEditSaveClick = () => {
     if (!editIndex) return;
+    //const newTodoList = [...todoList];
     const item = todoList.find((item) => item.index === editIndex);
 
     if (item) {
       item.text = editValue;
+      //setTodoList(newTodoList);
     }
 
     setEditValue('');
