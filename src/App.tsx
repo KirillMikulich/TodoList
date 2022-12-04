@@ -6,26 +6,34 @@ import { IListItem, InputMode } from "./models";
 
 import './app.scss';
 
-import TodoList  from './static/todoList.json';
-let todoList: IListItem[] = TodoList.todoList;
-
 function App() {
   const [filter, setFilter] = React.useState('');
   const [editValue, setEditValue] = React.useState('');
-  //const [todoList, setTodoList] = React.useState<IListItem[]>([]);
+  const [todoList, setTodoList] = React.useState<IListItem[]>([]);
 
   const [editIndex, setEditIndex] = React.useState<number | null>(null);
   const [mode, setMode] = React.useState(InputMode.Add);
 
-  console.log(TodoList);
+  React.useEffect(() => {
+    const items = localStorage.getItem('items');
+    if (items) {
+      setTodoList(JSON.parse(items));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(todoList));
+  }, [todoList]);
 
   const onAddClick = () => {
     if (editValue.length === 0) return;
-      todoList.push({
+    const newList = [...todoList];
+      newList.push({
         text: editValue,
         index: todoList.length > 0 ? todoList[todoList.length-1].index + 1 : 1
-      })
+      });
 
+      setTodoList(newList);
       setEditValue('');
       setFilter('');
       setMode(InputMode.Add);
@@ -45,19 +53,20 @@ function App() {
   }
 
   const onDeleteClick = (index: number) => {
-    todoList = todoList.filter((item) => item.index !== index);
-    //setTodoList(newList);
+    let newList = [...todoList];
+    newList = newList.filter((item) => item.index !== index);
+    setTodoList(newList);
 
   }
 
   const onEditSaveClick = () => {
     if (!editIndex) return;
-    //const newTodoList = [...todoList];
-    const item = todoList.find((item) => item.index === editIndex);
+    const newTodoList = [...todoList];
+    const item = newTodoList.find((item) => item.index === editIndex);
 
     if (item) {
       item.text = editValue;
-      //setTodoList(newTodoList);
+      setTodoList(newTodoList);
     }
 
     setEditValue('');
